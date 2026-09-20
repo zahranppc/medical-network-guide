@@ -35,6 +35,7 @@
     td{border:0;padding:4px 12px}
     td:first-child{padding-top:12px}
     td:last-child{padding-bottom:12px}
+    td:empty{display:none}
     td.ar{text-align:right}
   }
 </style>
@@ -72,7 +73,7 @@ function fill(sel,vals,keep){const cur=keep?sel.value:"";sel.length=1;vals.forEa
 TIERS.forEach(t=>$("tier").add(new Option(t,t)));
 fill($("type"),uniq(1));fill($("city"),uniq(3));fill($("loc"),uniq(4));fill($("spec"),uniq(2));
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const tel=p=>p.split(/[\/,\-–]\s*|\s{2,}/).map(x=>x.trim()).filter(Boolean).map(x=>`<a class="tel" href="tel:${x.replace(/\D/g,"")}">${esc(x)}</a>`).join("<br>");
+const tel=p=>p.split(/\s*[\/,]\s*/).map(x=>x.trim()).filter(Boolean).map(x=>`<a class="tel" href="tel:${x.replace(/\D/g,"")}">${esc(x)}</a>`).join("<br>");
 let filtered=[],shown=0;
 function apply(){
   const q=$("q").value.trim().toLowerCase(),tier=$("tier").value,type=$("type").value,city=$("city").value,loc=$("loc").value,spec=$("spec").value;
